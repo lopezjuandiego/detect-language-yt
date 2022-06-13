@@ -38,7 +38,7 @@ def detect_lang(url):
             return txt_resultado
 
     except: 
-        return f'El video con url: {url} no tiene subtítulos automáticos.'  
+        return f'La url ingresada no es válida.'  
                 
 
     
