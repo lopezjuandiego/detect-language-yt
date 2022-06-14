@@ -7,10 +7,8 @@ import os
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials.json"
 
 def detect_lang(url):
-    # while not url.startswith('https://www.youtube'):
-    #     print('No es una URL válida.')
-        # url = input('Ingresá la URL de un video de YouTube: ')
-    result = ""  
+  
+    resultado = ""  
     try:
         transcript = youtube_transcript_downloader.get_transcript(url)
         #toma el subtitulo automático de YouTube (en key trae el timecode y en val el texto)
@@ -25,20 +23,35 @@ def detect_lang(url):
         idioma =language_short_name.get(result["language"]).upper()
             
         if result['confidence'] > 0.90:
-
-            txt_resultado = f'Hay un {round(result["confidence"],2) * 100}% de posibilidades de que el idioma sea: {idioma}.'
-            return txt_resultado
+            resultado = {
+            "name": idioma,
+            "languageCode":result["language"],
+            "confidence": result["confidence"],
+            "description": f'Hay un {round(result["confidence"],2) * 100}% de posibilidades de que el idioma sea: {idioma}.'
+            }
+            return resultado
         
         elif result['confidence'] > 0.70 and result['confidence']< 0.90:
-            txt_resultado = f'Hay un {round(result["confidence"],2) * 100}% de posibilidades de que el idioma sea: {idioma} o el video no tiene subtítulo autómatico para reconocerlo.'
-            return txt_resultado
+            resultado = {
+            "name": idioma,
+            "languageCode": result["language"],
+            "confidence": result["confidence"],
+            "description":f'Hay un {round(result["confidence"],2) * 100}% de posibilidades de que el idioma sea: {idioma} o el video no tiene subtítulo autómatico para reconocerlo.'
+            }
+            
+            return resultado
 
         else:
-            txt_resultado = 'No se puede reconocer el idioma del video o no tiene subtítulos automáticos'
-            return txt_resultado
+            resultado = {
+            "name": None,
+            "languageCode": None,
+            "confidence": result["confidence"],
+            "description": 'No se puede reconocer el idioma del video o no tiene subtítulos automáticos'
+            }
+            return resultado
 
     except: 
-        return result
+        return resultado
                 
 
     
