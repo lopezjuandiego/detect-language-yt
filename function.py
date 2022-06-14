@@ -10,7 +10,7 @@ def detect_lang(url):
     # while not url.startswith('https://www.youtube'):
     #     print('No es una URL válida.')
         # url = input('Ingresá la URL de un video de YouTube: ')
-        
+    result = ""  
     try:
         transcript = youtube_transcript_downloader.get_transcript(url)
         #toma el subtitulo automático de YouTube (en key trae el timecode y en val el texto)
@@ -38,7 +38,7 @@ def detect_lang(url):
             return txt_resultado
 
     except: 
-        return f'La url ingresada no es válida.'  
+        return result
                 
 
     
