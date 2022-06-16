@@ -1,0 +1,25 @@
+**Detección de lenguaje de video de YouTube**
+
+Descargar librerias de requirements.txt
+
+
+Para detectar el idioma de un video de YouTube el mismo tiene que tener subtítulos generados automáticamente.
+
+En el archivo function.py instalamos dos librerias. 
+
+1. youtube_transcript_downloader
+2. google.cloud import translate_v2 as translate
+
+Comenzamos utilizando import _youtube_transcript_downloader_.
+Esta libreria realiza la descarga del subtítulo de un video y lo almacena. El subtítulo lo descarga usando el método *get_transcript* y se visualiza con su valor de tiempo (key) y texto del subtítulo (val).como si fuera un archivo srt de subtítulo de video).
+
+Utilizamos unicamente el _val_ para recorrer todo el subtíutlo y con el método *items* y length elegimos el último valor mayor de 28 caracteres. La elección de 28 es arbitraria pero nos ayuda a obtener un string "largo" para poder tener una frase completa y de este modo una traducción más exacta.
+
+Guardamos ese valor en una variable y utilizamos la otra libreria:
+google.cloud import translate_v2 as translate
+Esta libreria nos va a permitir identificar el idioma y además nos da el valor del confidence, que es grado de exactitud de detección del idioma y el lenguaje en valor de código de lenguajes.
+
+Luego corremos un condicional en función de la exactitud del confidence que nos devuelve un JSON.
+
+En el archivo main.py corremos FASTAPI y Pydantic, además de nuestro archivo function.opy y devolvemos en formato API el resultado con los status de response.
+

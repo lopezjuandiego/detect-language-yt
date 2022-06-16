@@ -23,7 +23,6 @@ httpx==0.13.3
 hyperframe==5.2.0
 idna==2.10
 joblib==1.1.0
-langdetect==1.0.9
 nltk==3.7
 numpy==1.22.4
 pandas==1.4.2
